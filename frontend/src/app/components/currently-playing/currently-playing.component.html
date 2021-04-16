@@ -1,0 +1,95 @@
+
+<style>
+    img
+    {
+        width:100%;
+        
+        /* padding-left:10%; */
+        /* transform: scale(3,1) */
+    }
+    .clip
+    {
+      max-height: 400px;
+      overflow:hidden;
+      position: relative;
+      
+    }
+
+    .overlay
+    {
+      position: absolute;
+
+    bottom: 0;
+    height:25%;
+    width: 100%;
+    opacity: 0;
+    transition: .2s ease;
+    background-image:linear-gradient(to bottom,  transparent,  black 25%) ;
+    color: white;
+    
+    font-size: 12px;
+    /* padding-left:5%; */
+    padding-bottom:3%;
+    text-align: left;
+    
+    /* left:0%; */
+    
+    }
+
+    .mobile_overlay
+    {
+      position: absolute;
+      bottom: 0;
+      height:15%;
+      width: 100%;
+      opacity: 1;
+      transition: .2s ease;
+      background-image:linear-gradient(to bottom,  transparent,  black 25%) ;
+      color: white;
+
+      font-size: 12px;
+      /* padding-left:5%; */
+      padding-bottom:1%;
+      text-align: left;
+
+    }
+    
+    .clip:hover .overlay {
+    /* transform:scale(1.05); */
+    opacity: 1;
+    /* left:4%; */
+    padding-left: 5%;
+    padding-bottom: 4%;
+    bottom:0;
+    padding-top: 5%;
+    /* padding-bottom: 1%; */
+  }
+  .clip:hover
+  {
+    transform: scale(1.1);
+  }
+  /* a.carousel-control-prev
+  {
+    width:5%;
+  } */
+</style>
+
+<ngb-carousel [showNavigationArrows]=true [showNavigationIndicators]="!isMobile">
+    <ng-template ngbSlide *ngFor="let group of listmovies;">
+      <div class= "clip">
+
+        <a [href]= getUrl(group)>
+          <div class = "picsum-img-wrapper">
+            <img src="{{group.backdrop_path}}" alt="Random first slide">
+          </div>
+          <div class="overlay" *ngIf = "!isMobile">
+            {{group.title}}
+          </div>
+          <div class="mobile_overlay" *ngIf = "isMobile">
+            {{group.title}}
+          </div>
+        </a>
+        
+      </div>
+    </ng-template>
+</ngb-carousel>

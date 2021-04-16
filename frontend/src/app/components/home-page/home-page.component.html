@@ -1,0 +1,30 @@
+
+<div *ngIf = "!isMobile">
+  <div class = "homep">
+    <app-currently-playing></app-currently-playing>
+    <app-continue-watching></app-continue-watching>
+    <div style ="margin-top: 5%;">
+
+    
+    <app-popular></app-popular>
+  </div>
+    <app-toprated></app-toprated>
+    <app-trending></app-trending>
+    <app-popular-tv></app-popular-tv>
+    <app-top-rated-tv></app-top-rated-tv>
+    <app-trending-tv></app-trending-tv>
+  </div>
+</div>
+
+<div *ngIf = "isMobile">
+  <div class = "homep_mob">
+    <app-currently-playing></app-currently-playing>
+    <app-continue-watching></app-continue-watching>
+    <app-popular></app-popular>
+    <app-toprated></app-toprated>
+    <app-trending></app-trending>
+    <app-popular-tv></app-popular-tv>
+    <app-top-rated-tv></app-top-rated-tv>
+    <app-trending-tv></app-trending-tv>
+  </div>
+</div>

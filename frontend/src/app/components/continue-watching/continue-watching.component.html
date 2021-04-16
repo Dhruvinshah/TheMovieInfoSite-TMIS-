@@ -1,0 +1,163 @@
+
+
+<style>
+    .card {
+    position: relative;
+    width: 50%;
+    background-color: transparent;
+    border:none;
+  }
+  
+  .cardimg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .card:hover{
+  transform: scale(1.1);
+  }
+  
+  
+  .overlay {
+    position: absolute;
+
+    bottom: 0;
+    
+    width: 100%;
+    opacity: 0;
+    transition: .2s ease;
+    background-image:linear-gradient(to bottom, transparent, black 25%);
+    color: white;
+    
+    font-size: 12px;
+    padding-left:5%;
+    padding-bottom:10%;
+    padding-top: 35%;
+    
+  }
+
+  .movie_overlay
+  {
+    position: absolute;
+
+    bottom: 0;
+    height:15%;
+    width: 100%;
+    opacity: 1;
+    transition: .2s ease;
+    background-image:linear-gradient(to bottom, transparent, black 25%);
+    color: white;
+    
+    font-size: 12px;
+    padding-left:5%;
+    padding-bottom:1.5%;
+  } 
+  .card:hover .overlay {
+    /* transform:scale(1.05); */
+    opacity: 1;
+  }
+  
+  
+  .card-deck{
+    /* padding-top:20px; */
+    /* padding-bottom:20px; */
+    /* padding-top:1.5%;
+    padding-bottom:1.5%;
+    padding-left: 0%; */
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    /* background-color: grey; */
+  }
+  
+  .text2{
+    padding-left:5%;
+    margin-top: 10px;
+    margin-left: 5%;
+    color:white;
+  }
+
+  .mobile_text2{
+    padding-left:5%;
+    margin-top: 10px;
+    margin-left: 5%;
+    font-size: 37px;
+    color:white;
+  }
+
+  
+  </style>
+  
+  <div *ngIf = "!isMobile">
+    <div class="cardPopularMovies" *ngIf = "to_show">
+      <h2 class="text2">Continue watching</h2>
+      <div class="">
+          <ngb-carousel [interval]="interval" > 
+              <ng-template ngbSlide  *ngFor="let img of listmovies;">
+                  <div class="card-deck">
+                          <div class="card" *ngFor="let im of img;">
+                            <div *ngIf = "im.poster_path">
+                              
+                                <a [href]= getUrl(im)>
+                                  <!-- <a [routerLink] = "['/details', im.title, im.id]" routerLinkActive="active"> -->
+                                  <img class="card-img-top cardimg" src="{{im.poster_path}}">
+                                  <div class="overlay">
+                                    <!-- <div class="text">{{im.title}}</div> -->
+                                    {{im.title}}
+                                  </div>
+                                </a>
+                              
+                              
+                                
+                            </div>
+                            
+                          </div>
+                  </div>
+              </ng-template>
+          </ngb-carousel>
+      </div>
+    </div>
+  
+</div>
+  
+<div *ngIf = "isMobile">
+  <div class="cardPopularMovies" *ngIf = "to_show">
+    <h2 class="mobile_text2">Continue watching</h2>
+    <div class="">
+        <ngb-carousel [interval]="interval" [showNavigationIndicators]="!isMobile"> 
+          <ng-container *ngFor="let img of listmovies;">
+
+          
+          <ng-container *ngFor="let im of img;">
+            <ng-container *ngIf = "im.poster_path">
+            <ng-template ngbSlide  >
+              <!-- <div class="card-deck">  -->
+                      <div class="card"  style="margin-right: auto;margin-left: auto;">
+                        
+                        
+                          
+                            <a [href]= getUrl(im)>
+                              <!-- <a [routerLink] = "['/details', im.title, im.id]" routerLinkActive="active"> -->
+                              <img class="card-img-top cardimg" src="{{im.poster_path}}">
+                              <div class="movie_overlay">
+                                <!-- <div class="text">{{im.title}}</div> -->
+                                {{im.title}}
+                              </div>
+                            </a>
+                          
+                          
+                            
+                        
+                        
+                      </div>
+              <!-- </div> -->
+          </ng-template>
+            </ng-container>
+          </ng-container>
+        </ng-container>  
+        </ngb-carousel>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,634 @@
+<style>
+    /* .video
+    {
+        width:100%;
+        height:100%;
+        margin-left:10%;
+    } */
+    iframe
+    {
+        width:100%;   
+        height:300px;
+    }
+
+    .normal{
+        color:#0099CC;
+        font-size: 15px;
+    }
+    .fb
+    {
+        color: #3b5998;
+        padding-left:40%;
+        /* color:red; */
+    }
+    .card-text
+    {
+     /* overflow-wrap: break-word; */
+        white-space: normal;
+        text-align: center;
+    }
+    .card
+    {
+        border-radius:15px;
+        display:inline-block;
+        width:16%;
+        margin-right: 1%;
+        vertical-align: top;
+        border-color: transparent;
+        border-width: 0;
+    }
+
+    .card:hover
+    {
+        cursor: pointer;
+    }
+    .card-img-top
+    {
+        /* order-radius:10% 10% 0% 0%; */
+        border-color: transparent;
+        /* border-top-left-radius: 5%; */
+        /* border-top-right-radius: 5%; */
+    }
+    .scrolling-wrapper{
+	overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-color: grey;
+}
+
+/* .cardimg
+{
+    width: 100%;
+    border-radius:10% 10% 0% 0%;
+    border-color: transparent;
+} */
+
+.card img{
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border:transparent;
+}
+.nac
+{
+    font-weight: 700;
+}
+/* .card img{
+    border-radius:10% 10% 0% 0%;
+    border-color: transparent;
+} */
+.card-body
+{
+    padding-top:1.3%;
+    padding-left:1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+}
+
+/* ::ng-deep .modal-deep .modal-dialog
+{
+    max-width: 60%;
+} */
+
+.block-with-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    margin-top: 1.5%;
+}
+
+.comment
+{
+    background-color: white;
+    border-radius:10px;
+    margin-bottom:1%;
+    padding-bottom: 1.5%;
+}
+
+.rating
+{
+    background-color: black;
+    color:white;
+    border-top-left-radius:  80% 30px;
+  /* border-top-right-radius:  30px; */
+  border-bottom-left-radius:  80% 30px;
+  border-top-right-radius:  80% 30px;
+  border-bottom-right-radius: 80% 30px;
+}
+
+.vid_desc
+{
+    padding-top: 2%;
+}
+
+/* .scrolling-wrapper::-webkit-scrollbar-thumb */
+/* { */
+	/* border-radius: 10px; */
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+	/* background-color: #D62929; */
+/* } */
+/* .modal-header
+{
+    flex-shrink: 0;
+} */
+
+::ng-deep .modal-dialog-scrollable
+{
+    flex-shrink: 0;
+}
+</style>
+
+<div class = "detailp">
+
+
+<span *ngIf="!isMobile">
+<div *ngIf="!isMobile" style="margin-bottom: 5%;">
+
+
+<div class = "container">
+
+
+    <div class ="row vid_desc ">
+        <div class = "col-sm-8  embed-responsive embed-responsive-16by9">
+            <!-- class="embed-responsive embed-responsive-4by3" -->
+            <!-- <div class = "video" > -->
+                <!-- class="embed-responsive-item" -->
+                <!-- <iframe  src="{{movie_video}}" ></iframe> -->
+                <youtube-player
+
+                
+                    videoId="{{movie_video}}"
+                    suggestedQuality="highres"
+                    
+                    >
+                </youtube-player>
+            <!-- </div> -->
+        
+        
+
+    </div>
+    <div class = "col-sm-4" style="padding-left: 2%;color: white;">
+        <h4 style="font-size: 50px;">
+            {{title.title}}
+        </h4>
+        <p style="font-style: italic;">
+            {{title.tagline}}
+        </p>
+        <p>
+            <span *ngIf = "title.release_date">{{title.release_date}}</span> <span *ngIf = "title.vote_average"> | &#9733; {{title.vote_average}}</span> <span *ngIf = "title.runtime"> | {{title.runtime}} </span> 
+        </p>
+        <p style="margin-bottom:0%" *ngIf = "title.genres.length">
+            <span style = "font-weight:500;">Genres : </span> {{title.genres}}
+        </p>
+        <p style="margin-top:0.4%;" *ngIf = "title.spoken_languages.length">
+            <span style = "font-weight:500;">Spoken Languages :</span> {{title.spoken_languages}}
+        </p>
+        <button class ="btn btn-primary" (click) ="watch(id)" style="margin-bottom: 3%;">
+            {{ cond_vall == true ? 'Add to watchlist' : 'Remove from Watchlist' }}
+        </button>
+        <ngb-alert #selfClosingAlert *ngIf="successMessage" [type]="succ" (closed)="successMessage = ''">{{successMessage}}</ngb-alert>
+    </div>
+</div>
+    <div class = "row" style="margin-top:1.5%; color: white;" *ngIf = "title.overview">
+        <h5 style="margin-bottom: 0%;">Description</h5>
+        <p style="margin-top: 0%;" >{{title.overview}}</p>
+    </div>
+    <div class = "row" style="color: white;">
+        <h5>Share</h5>
+    </div>
+    <div class ="row">
+
+    
+        <p>   
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{title.title}}&url={{entire_movie_video}}&hashtags=USC,CSCI571,FightOn" target="_blank">
+                <div class ="normal">
+    
+                
+                <fa-icon  size = "lg" [icon]="faTwitter"></fa-icon>
+            </div>
+                
+            </a>  
+        </p>
+        
+            <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+
+
+        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{entire_movie_video}}" class="fb-xfbml-parse-ignore">
+                <!-- https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse -->
+                <div class = "fb">
+
+                
+                <fa-icon  size = "lg" [icon]="faFacebook"></fa-icon>
+            </div>
+            </a>
+        </div>
+        
+</div>
+<div *ngIf="to_cast">
+
+    <div class = "row" style="margin-top: 2%;margin-bottom: 1%;color: white;" >
+        <h3>Full Cast and Crew</h3>
+    </div>
+    
+    <div class="scrolling-wrapper">
+        <div style="margin-bottom: 1%;">
+            
+            <div class=" card " (click)="open(content, ct.id)" *ngFor = "let ct of cast;">    
+                    <div >
+                        <img src="{{ct.profile_path}}">
+                        <!-- cardimg -->
+                        <!-- card-img-top -->
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text nac" style="margin-top:0.5%;margin-bottom: 1%;">{{ct.name}}</p>
+                        <p class="card-text nac" style="margin-top:0.5%;margin-bottom: 1%;">AS</p>
+                        <p class="card-text" style="margin-top:0.5%;margin-bottom: 1%;">{{ct.character}}</p>
+                    </div>
+    
+                    <ng-template #content let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">{{cast_details.name}}</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class= "row">
+                                <div class= "col-sm-3">
+                                    <img style="width: 100%;height:100%" src= "{{ct.profile_path}}">
+                                </div>
+                                <div class = "col-sm-9">
+                                    <span *ngIf = "cast_details.birthday">Birth: {{cast_details.birthday}}</span><br>
+                                    <span *ngIf = "cast_details.place_of_birth">Birth Place: {{cast_details.place_of_birth}}</span><br>
+                                    <span *ngIf = "cast_details.gender">Gender: {{cast_details.gender}}</span><br>
+                                    <span *ngIf = "cast_details.known_for_department">Known for: {{cast_details.known_for_department}}</span><br>
+                                    <span *ngIf = "cast_details.also_known_as">Also Known as: {{cast_details.also_known_as}}</span><br>
+                                    <div style="margin-top: 3.5%;">
+                                        <a href= "{{cast_external.imdb_id}}" target="_blank" *ngIf = "cast_external.imdb_id">
+                                        
+                                            <!-- <button type="button" class="btn "  > -->
+                                                <!-- class="btn btn-outline-secondary" -->
+                                                <span style="color:#DBA506;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit IMDB" triggers="mouseenter:mouseleave" placement="top">
+                                                    <fa-icon size = "2x"  [icon]="faimdb"></fa-icon>
+                                                </span>    
+                                            <!-- </button> -->
+                                            
+                                        
+                                    </a>
+                                    
+                                    <a href= "{{cast_external.instagram_id}}" target="_blank" *ngIf = "cast_external.instagram_id">
+                                        <!-- <button type="button" class="btn "  ngbPopover="Visit Instagram" triggers="mouseenter:mouseleave" placement="top"> -->
+                                            <span style="color:#833AB4;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Instagram" triggers="mouseenter:mouseleave" placement="top">
+                                        
+                                                <fa-icon size = "2x"  [icon]="fainsta"></fa-icon>
+                                            </span>
+                                        <!-- </button> -->
+                                        
+                                    </a>
+                                        
+                                    
+                                    <a href= "{{cast_external.facebook_id}}" target="_blank" *ngIf = "cast_external.facebook_id" >
+                                        <span style="color:#3b5998;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Facebook" triggers="mouseenter:mouseleave" placement="top">
+                                        
+                                            <fa-icon size = "2x"  [icon]="faFacebook"></fa-icon>
+                                        </span>
+                                    </a>
+                                        
+                                    
+                                    <a href= "{{cast_external.twitter_id}}" target="_blank" *ngIf = "cast_external.twitter_id" >
+                                        <span style="color:#0099CC;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Twitter" triggers="mouseenter:mouseleave" placement="top">
+                                        
+                                            <fa-icon size = "2x"  [icon]="faTwitter"></fa-icon>
+                                        </span>
+                                    </a>
+                                    </div>
+                                    
+                                        
+                                </div>
+                                
+                                
+                            </div>
+                            <div class= "row" style="font-weight: 600;margin-left: 0%;margin-top: 1.5%;font-size: 23px;" >
+                                Biography
+                            </div>
+                            <div class= "row" style="margin-left: 0%;margin-top: 1.5%;font-size: 15px;margin-right: 1%;">
+                                {{cast_details.biography}}
+                            </div>
+                        </div>
+                        
+                    </ng-template>
+                      
+                
+            </div>
+           
+        </div>
+    </div>
+    
+
+</div>
+
+
+<div class="row" style="margin-top: 1%;" *ngIf= "to_review">
+    <h3><span style="color: white;">Reviews</span>  &nbsp;<span style="color:lightgrey">{{reviews.length}}</span></h3>
+</div>
+<div class ="row comment" *ngFor=  "let rev of reviews;">
+    
+        <div class= "col-sm-2" style="text-align: center;">
+            <img style="width:50%;margin-top: 10%;border-radius: 50%;" src = "{{rev.avatar_path}}">
+        </div>
+        <div class= "col-sm-10">
+            <p style="margin-top: 2%;font-weight: bold; margin-bottom: 4%;"> A review created by {{rev.author}}     <span class="rating" *ngIf="rev.rating">&nbsp; &#9733; {{rev.rating}}&nbsp;&nbsp;</span></p>
+
+            <span style="color: lightgrey;">Written by {{rev.author}} on {{rev.created_at[0]}}, {{rev.created_at[1]}}</span> <br>
+            <p class="block-with-text">{{rev.content}}</p>
+            <a  href="{{reviews[0].url}}" target="_blank"> Read the rest</a>
+        </div>
+   
+    
+</div>
+</div>
+</div>
+<app-recommended>
+
+</app-recommended>
+<div style="margin-bottom: 5%;">
+
+</div>
+<app-similar>
+
+</app-similar>
+<div style="margin-bottom: 10%;">
+
+</div>
+</span>
+
+
+<!-- Mobile starts here -->
+
+
+<div *ngIf="isMobile">
+    
+
+    <div class = "container" >
+    
+    
+        <div class ="row vid_desc ">
+            <div class = "col-sm-8  embed-responsive embed-responsive-16by9">
+                <!-- class="embed-responsive embed-responsive-4by3" -->
+                <!-- <div class = "video" > -->
+                    <!-- class="embed-responsive-item" -->
+                    <!-- <iframe  src="{{movie_video}}" ></iframe> -->
+                    <youtube-player
+    
+                    
+                        videoId="{{movie_video}}"
+                        suggestedQuality="highres"
+                        
+                        >
+                    </youtube-player>
+                <!-- </div> -->
+            
+            
+    
+        </div>
+        <div class = "col-sm-4" style="padding-left: 2%; color:white">
+            <h4 style="font-size: 50px;">
+                {{title.title}}
+            </h4>
+            <p style="font-style: italic;">
+                {{title.tagline}}
+            </p>
+            <p>
+                <span *ngIf = "title.release_date">{{title.release_date}}</span> <span *ngIf = "title.vote_average"> | &#9733; {{title.vote_average}}</span> <span *ngIf = "title.runtime"> | {{title.runtime}} </span> 
+            </p>
+            <p style="margin-bottom:0%" *ngIf = "title.genres.length">
+                <span style = "font-weight:500;">Genres : </span> {{title.genres}}
+            </p>
+            <p style="margin-top:0.4%;" *ngIf = "title.spoken_languages">
+                <span style = "font-weight:500;">Spoken Languages :</span> {{title.spoken_languages}}
+            </p>
+            <button class ="btn btn-primary" (click) ="watch(id)" style="margin-bottom: 2%;">
+                {{ cond_vall == true ?'Add to watchlist' : 'Remove from Watchlist' }}
+                
+            </button>
+            <!-- <p> -->
+                <!-- <div *ngIf = "succ_condition"> -->
+                    
+                        <!-- <ngb-alert #selfClosingAlert [type]="succ" (closed)="''">Added to Watchlist</ngb-alert> -->
+                        <ngb-alert #selfClosingAlert *ngIf="successMessage" [type]="succ" (closed)="successMessage = ''">{{successMessage}}</ngb-alert>
+                    
+
+                    <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Added to Watchlist
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> -->
+                <!-- </div> -->
+            
+            <!-- <p> -->
+            <!-- <div *ngIf = "danger_condition">
+               
+                    <ngb-alert [type]="dang" (close)="true">Removed from Watchlist</ngb-alert>
+               
+                
+                
+            </div> -->
+        </div>
+    </div>
+        <div class = "row" style="margin-top:1.5%; color:white" *ngIf = "title.overview">
+            <h5 style="margin-bottom: 0%;">Description</h5>
+            <p style="margin-top: 0%;">{{title.overview}}</p>
+        </div>
+        <div class = "row">
+            <h5 style="color:white">Share</h5>
+        </div>
+        <div class ="row">
+    
+        
+            <p>   
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{title.title}}&url={{entire_movie_video}}&hashtags=USC,CSCI571,FightOn" target="_blank">
+                    <div class ="normal">
+        
+                    
+                    <fa-icon  size = "lg" [icon]="faTwitter"></fa-icon>
+                </div>
+                    
+                </a>  
+            </p>
+            
+                <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    
+            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{entire_movie_video}}" class="fb-xfbml-parse-ignore">
+                    <!-- https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse -->
+                    <div class = "fb">
+    
+                    
+                    <fa-icon  size = "lg" [icon]="faFacebook"></fa-icon>
+                </div>
+                </a>
+            </div>
+            
+    </div>
+    <div *ngIf="to_cast">
+        <div class = "row" style="margin-top: 2%;margin-bottom: 1%; color:white">
+            <h3>Full Cast and Crew</h3>
+        </div>
+        
+        <div class="scrolling-wrapper">
+            <div style="margin-bottom: 1%;">
+                
+                <div class=" card " (click)="open(content, ct.id)" style="width: 48%;margin-left: 3%;" *ngFor = "let ct of cast;">    
+                        <div >
+                            <img class="cardimg" src="{{ct.profile_path}}">
+                            <!-- card-img-top -->
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text nac" style="margin-top:0.5%;margin-bottom: 1%;">{{ct.name}}</p>
+                            <p class="card-text nac" style="margin-top:0.5%;margin-bottom: 1%;">AS</p>
+                            <p class="card-text" style="margin-top:0.5%;margin-bottom: 1%;">{{ct.character}}</p>
+                        </div>
+        
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="modal-basic-title">{{cast_details.name}}</h4>
+                              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class= "row">
+                                    <div class= "col-sm-3">
+                                        <img style="width: 100%;height:100%" src= "{{ct.profile_path}}">
+                                    </div>
+                                    <div class = "col-sm-9">
+                                        <span *ngIf = "cast_details.birthday">Birth: {{cast_details.birthday}}</span><br>
+                                        <span *ngIf = "cast_details.place_of_birth">Birth Place: {{cast_details.place_of_birth}}</span><br>
+                                        <span *ngIf = "cast_details.gender">Gender: {{cast_details.gender}}</span><br>
+                                        <span *ngIf = "cast_details.known_for_department">Known for: {{cast_details.known_for_department}}</span><br>
+                                        <span *ngIf = "cast_details.also_known_as">Also Known as: {{cast_details.also_known_as}}</span><br>
+                                        <div style="margin-top: 3.5%;">
+                                            <a href= "{{cast_external.imdb_id}}" target="_blank" *ngIf = "cast_external.imdb_id">
+                                            
+                                                <!-- <button type="button" class="btn "  > -->
+                                                    <!-- class="btn btn-outline-secondary" -->
+                                                    <span style="color:#DBA506;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit IMDB" triggers="mouseenter:mouseleave" placement="top">
+                                                        <fa-icon size = "2x"  [icon]="faimdb"></fa-icon>
+                                                    </span>    
+                                                <!-- </button> -->
+                                                
+                                            
+                                        </a>
+                                        
+                                        <a href= "{{cast_external.instagram_id}}" target="_blank" *ngIf = "cast_external.instagram_id">
+                                            <!-- <button type="button" class="btn "  ngbPopover="Visit Instagram" triggers="mouseenter:mouseleave" placement="top"> -->
+                                                <span style="color:#833AB4;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Instagram" triggers="mouseenter:mouseleave" placement="top">
+                                            
+                                                    <fa-icon size = "2x"  [icon]="fainsta"></fa-icon>
+                                                </span>
+                                            <!-- </button> -->
+                                            
+                                        </a>
+                                            
+                                        
+                                        <a href= "{{cast_external.facebook_id}}" target="_blank" *ngIf = "cast_external.facebook_id">
+                                            <span style="color:#3b5998;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Facebook" triggers="mouseenter:mouseleave" placement="top">
+                                            
+                                                <fa-icon size = "2x"  [icon]="faFacebook"></fa-icon>
+                                            </span>
+                                        </a>
+                                            
+                                        
+                                        <a href= "{{cast_external.twitter_id}}" target="_blank" *ngIf = "cast_external.twitter_id">
+                                            <span style="color:#0099CC;padding-right: 1%;padding-top:1.5%" ngbPopover="Visit Twitter" triggers="mouseenter:mouseleave" placement="top">
+                                            
+                                                <fa-icon size = "2x"  [icon]="faTwitter"></fa-icon>
+                                            </span>
+                                        </a>
+                                        </div>
+                                        
+                                            
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class= "row" style="font-weight: 600;margin-left: 0%;margin-top: 1.5%;font-size: 23px;" >
+                                    Biography
+                                </div>
+                                <div class= "row" style="margin-left: 0%;margin-top: 1.5%;font-size: 15px;margin-right: 1%;">
+                                    {{cast_details.biography}}
+                                </div>
+                            </div>
+                            
+                        </ng-template>
+                          
+                    
+                </div>
+               
+            </div>
+        </div>
+        
+
+    </div>
+
+    
+    <div *ngIf = "to_review">
+        <div class="row" style="margin-top: 1%;" >
+            <h3><span style="color:white;">Reviews</span>  &nbsp;<span style="color:lightgrey">{{reviews.length}}</span></h3>
+        </div>
+    </div>
+    
+    <div class ="row comment" *ngFor=  "let rev of reviews;" style="margin-bottom: 3%;">
+        
+            <div class= "col-sm-2" style="text-align: left;">
+                <img style="width:30%;margin-top: 7%;border-radius: 50%; margin-left: 5%; margin-bottom: 3%; " src = "{{rev.avatar_path}}">
+            </div>
+            <div class= "col-sm-10">
+                <p style="margin-top: 2%;font-weight: bold; margin-bottom: 4%;"> A review created by <br>{{rev.author}}  <br>   <span class="rating">&nbsp; &#9733; {{rev.rating}}&nbsp;&nbsp;</span></p>
+    
+                <span style="color: lightgrey;">Written by {{rev.author}} on {{rev.created_at[0]}}, {{rev.created_at[1]}}</span> <br>
+                <p class="block-with-text">{{rev.content}}</p>
+                <a  href="{{reviews[0].url}}" target="_blank"> Read the rest</a>
+            </div>
+       
+        
+    </div>
+    </div>
+    <app-recommended>
+
+    </app-recommended>
+    <div style="margin-bottom: 20%;">
+    
+    </div>
+    <app-similar>
+    
+    </app-similar>
+    <div style="margin-bottom: 20%;">
+    
+    </div>
+
+
+
+</div>
+
+
+</div>
+

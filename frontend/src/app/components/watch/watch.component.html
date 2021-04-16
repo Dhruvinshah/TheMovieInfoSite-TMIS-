@@ -1,0 +1,165 @@
+<style>
+    .card:hover .overlay {
+    opacity: 1;
+  }
+  .card {
+    position: relative;
+    width: 50%;
+    background-color: transparent;
+    border:none;
+    width:15%;
+    margin-left: 1.5%;
+  }
+
+  .cardimg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    position: absolute;
+
+    bottom: 0;
+    
+    width: 100%;
+    opacity: 0;
+    transition: .2s ease;
+    background-image:linear-gradient(to bottom, transparent, black 25%);
+    color: white;
+    
+    font-size: 12px;
+    padding-left:5%;
+    padding-bottom:10%;
+    padding-top: 35%;
+    
+  }
+
+  .movie_overlay
+  {
+    position: absolute;
+
+    bottom: 0;
+    height:10%;
+    width: 100%;
+    opacity: 1;
+    transition: .2s ease;
+    background-image:linear-gradient(to bottom, transparent, black 25%);
+    color: white;
+    
+    font-size: 12px;
+    padding-left:5%;
+    padding-bottom:1.5%;
+    padding-top: 4%;
+  } 
+
+  .card:hover{
+  transform: scale(1.1);
+  }
+
+  .strip
+  {
+    margin-bottom: 2%;
+    margin-top: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .card-deck{
+    
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    /* background-color: grey; */
+  }
+
+  .watchp
+  {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+</style>
+<div class = "watchp">
+
+
+<div *ngIf = "!isMobile">
+
+  <div *ngIf = "watch">
+
+
+    <h3 style="color: white;margin-left: 11%;margin-right: 11%;margin-bottom:5%">My WatchList</h3>
+    <div class ="row strip" *ngFor="let imag of listitems;" >
+      
+        <div class="card"  *ngFor = "let im of imag;" >
+          
+            <div *ngIf = "im.poster_path">
+              
+                <a [href]= getUrl(im)>
+                
+                  <img class="card-img-top cardimg" src="{{im.poster_path}}">
+                  <div class="overlay">
+                  
+                    {{im.title}}
+                  </div>
+                  </a>
+              
+              
+                
+            </div>
+          
+          </div>
+    </div>
+</div>
+<div *ngIf = "!watch">
+  <h3 style="text-align: center; color:white;">No items found in WatchList</h3>
+
+</div>
+
+
+</div>
+
+
+<div *ngIf = "isMobile">
+
+  <div *ngIf = "watch">
+
+
+    <h3 style="color: white;">My WatchList</h3>
+    <div *ngFor="let imag of listitems;"> 
+
+      <div class ="row strip"  *ngFor = "let im of imag;" >
+      
+        <div class="card" style="width:100%;margin-top:5%;margin-bottom: 5%;" >
+          
+            <div *ngIf = "im.poster_path">
+              
+                <a [href]= getUrl(im)>
+                
+                  <img class="card-img-top cardimg" src="{{im.poster_path}}">
+                  <div class="movie_overlay">
+                  
+                    {{im.title}}
+                  </div>
+                  </a>
+              
+              
+                
+            </div>
+          
+          </div>
+    </div>
+</div>
+
+
+
+    </div>
+    <div *ngIf = "!watch">
+      <h3 style="text-align: center; color:white;">No items found in WatchList</h3>
+    
+    </div>
+
+</div>
+
+</div>

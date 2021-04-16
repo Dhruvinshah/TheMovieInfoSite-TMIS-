@@ -1,0 +1,22 @@
+
+<ng-template #rt let-r="result" let-t="term">
+    <img [src]="r.backdrop_path" class="mr-1" style="width: 50px">
+    <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+</ng-template>
+
+<!-- <div class="form-group"> -->
+    
+    <input id="search" type="text"
+           name="ArtistName"
+           class="form-control"                     
+           [(ngModel)]="model"
+           [ngbTypeahead]="search"                     
+           [resultFormatter]="resultFormatBandListValue"
+           [inputFormatter]="inputFormatBandListValue"
+           [resultTemplate] = "rt"
+           #instance="ngbTypeahead"  
+           placeholder = "Search"
+           (selectItem) = "itemselected($event)"
+      />
+      <!-- [routerLink] =  getUrl(im) -->
+  <!-- </div> -->
