@@ -1,4 +1,4 @@
-# TheMovieInfoSite-TMIS-
+# TheMovieInfoSite-TMIS
 
 Site can be viewed at:-  
 https://propane-terra-310203.wl.r.appspot.com/
